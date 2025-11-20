@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student E-Data With Multi-Filters</title>
+  <link rel="icon" type="image/x-icon" href="images/logo.ico">
+  <link rel="stylesheet" href="stylesheets/common.css">
+  <style>
+    .filters-wrapper {
+      background: #fff;
+      padding: 15px;
+      margin: 10px auto 20px;
+      border-radius: 8px;
+      max-width: 900px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      min-height: 120px;
+      /* Stabilizes height */
+      transition: min-height 0.3s;
+      /* Smooth change */
+      position: relative;
+      /* Optional, if needed for a fixed context */
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+
+    .filter-row select,
+    .filter-row input {
+      padding: 8px 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      min-width: 140px;
+      box-sizing: border-box;
+    }
+
+    .filter-row button.remove-filter {
+      background-color: #e74c3c;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .filter-row button.remove-filter:hover {
+      background-color: #c0392b;
+    }
+
+    .filter-actions {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .filter-actions button {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .filter-actions button:hover {
+      background-color: #006400;
+    }
+
+
+    #addButton {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #27ae60;
+      border: none;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #addButton img {
+      width: 40px;
+      height: 40px;
+    }
+
+    #addButton:hover {
+      background-color: #1f8c4a;
+    }
+
+    .back-btn-bottom {
+      display: block;
+      margin: 30px auto;
+      padding: 10px 20px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      width: 120px;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-btn-bottom:hover {
+      background-color: #006400;
+    }
+  </style>
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <img src="images/Master.jpg" alt="Master" width="78" height="100" />
+    <button id="logoutButton">Logout</button>
+    <h1>Student E-Data</h1>
+  </header>
+  <main>
+    <div class="filters-wrapper">
+      <div id="filtersContainer">
+        <!-- Dynamically added filter rows -->
+      </div>
+      <div class="filter-actions">
+        <button id="addFilterBtn">Add Filter</button>
+        <button id="applyFiltersBtn">Apply Filters</button>
+        <button id="clearFiltersBtn">Clear Filters</button>
+      </div>
+    </div>
+
+    <table id="studentTable">
+      <thead>
+        <tr>
+          <th>MEL_ID</th>
+          <th>NAME</th>
+          <th>LEVEL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Student rows inserted here by JS -->
+      </tbody>
+    </table>
+    <button class="back-btn-bottom" onclick="window.history.back()">← Back</button>
+    <button id="addButton" title="Add New Student">
+      <img src="images/add_icon.png" alt="Add" />
+    </button>
+  </main>
+  <script>
+    const students = [
+      { MEL_ID: 101, Name: "Alice Smith", Address: "123 Maple St", PhoneNumber: "555-2345", Level: 2, Instructor: "John Doe", RegistrationNumber: "R001" },
+      { MEL_ID: 102, Name: "Bob Johnson", Address: "456 Oak St", PhoneNumber: "555-6789", Level: 3, Instructor: "Jane Roe", RegistrationNumber: "R002" },
+      { MEL_ID: 103, Name: "Charlie Lee", Address: "789 Pine St", PhoneNumber: "555-3456", Level: 2, Instructor: "John Doe", RegistrationNumber: "R003" },
+      { MEL_ID: 104, Name: "Diana Garcia", Address: "321 Birch St", PhoneNumber: "555-7890", Level: 1, Instructor: "Jane Roe", RegistrationNumber: "R004" },
+      { MEL_ID: 105, Name: "Ethan Wang", Address: "654 Cedar St", PhoneNumber: "555-5678", Level: 3, Instructor: "John Doe", RegistrationNumber: "R005" }
+    ];
+
+    const fields = ["MEL_ID", "Name", "Address", "PhoneNumber", "Level", "Instructor", "RegistrationNumber"];
+    const operators = [
+      { value: "=", label: "=" },
+      { value: "contains", label: "Contains" },
+      { value: "not_contains", label: "Not Contains" },
+      { value: "<", label: "<" },
+      { value: ">", label: ">" },
+      { value: "<=", label: "<=" },
+      { value: ">=", label: ">=" }
+    ];
+
+    // Utility function to create a filter row
+    function createFilterRow() {
+      const row = document.createElement("div");
+      row.classList.add("filter-row");
+
+      // Field select
+      const fieldSelect = document.createElement("select");
+      fields.forEach(f => {
+        const option = document.createElement("option");
+        option.value = f;
+        option.textContent = f;
+        fieldSelect.appendChild(option);
+      });
+
+      // Operator select
+      const operatorSelect = document.createElement("select");
+      operators.forEach(op => {
+        const option = document.createElement("option");
+        option.value = op.value;
+        option.textContent = op.label;
+        operatorSelect.appendChild(option);
+      });
+
+      // Input box
+      const input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "Enter value";
+
+      // Remove button
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.textContent = "X";
+      removeBtn.classList.add("remove-filter");
+      removeBtn.title = "Remove this filter";
+      removeBtn.addEventListener("click", () => {
+        row.remove();
+      });
+
+      row.appendChild(fieldSelect);
+      row.appendChild(operatorSelect);
+      row.appendChild(input);
+      row.appendChild(removeBtn);
+
+      return row;
+    }
+
+    function compareValues(a, operator, b) {
+      if (typeof a === "string") {
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+      }
+
+      switch (operator) {
+        case "=":
+          return a == b;
+        case "contains":
+          return a.includes(b);
+        case "not_contains":
+          return !a.includes(b);
+        case "<":
+          return a < b;
+        case ">":
+          return a > b;
+        case "<=":
+          return a <= b;
+        case ">=":
+          return a >= b;
+        default:
+          return false;
+      }
+    }
+
+    // Apply multiple filters combined with AND logic
+    function applyFilters() {
+      const filters = document.querySelectorAll(".filter-row");
+      if (filters.length === 0) {
+        renderTable(students);
+        return;
+      }
+
+      // Gather filters
+      const criteria = [];
+      for (let f of filters) {
+        const field = f.children[0].value;
+        const operator = f.children[1].value;
+        const value = f.children[2].value.trim();
+        if (!value) {
+          alert("Please enter value in all filters.");
+          return;
+        }
+        criteria.push({ field, operator, value });
+      }
+
+      const filtered = students.filter(student => {
+        return criteria.every(({ field, operator, value }) => {
+          let fieldValue = student[field];
+          // Handle numeric fields MEL_ID, Level as numbers
+          if (field === "MEL_ID" || field === "Level") {
+            fieldValue = Number(fieldValue);
+            const numValue = Number(value);
+            if (isNaN(numValue)) return false;
+            return compareValues(fieldValue, operator, numValue);
+          } else {
+            // Other fields as strings
+            fieldValue = String(fieldValue).toLowerCase();
+            return compareValues(fieldValue, operator, value.toLowerCase());
+          }
+        });
+      });
+
+      renderTable(filtered);
+    }
+
+    function clearFilters() {
+      const container = document.getElementById("filtersContainer");
+      container.innerHTML = "";
+      renderTable(students);
+    }
+
+    function renderTable(data) {
+      const tbody = document.querySelector("#studentTable tbody");
+      tbody.innerHTML = "";
+      if (data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center;">No students found</td></tr>`;
+        return;
+      }
+      data.forEach(student => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+    <td>${student.MEL_ID}</td>
+    <td>${student.Name}</td>
+    <td>${student.Level}</td>
+  `;
+
+        // Make row clickable to go to detail page with MEL_ID param
+        tr.style.cursor = "pointer";
+        tr.addEventListener("click", () => {
+          window.location.href = `student_detail.html?mel_id=${student.MEL_ID}`;
+        });
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Initial setup
+    document.getElementById("addFilterBtn").addEventListener("click", () => {
+      const container = document.getElementById("filtersContainer");
+      container.appendChild(createFilterRow());
+    });
+    document.getElementById("applyFiltersBtn").addEventListener("click", applyFilters);
+    document.getElementById("clearFiltersBtn").addEventListener("click", clearFilters);
+    document.getElementById("logoutButton").addEventListener("click", () => {
+      window.location.href = 'login.html';
+    });
+    document.getElementById("addButton").addEventListener("click", () => {
+      window.location.href = 'new_student.html';
+    });
+
+    // Start with one filter row by default
+    document.getElementById("filtersContainer").appendChild(createFilterRow());
+
+    // Display all students on start
+    renderTable(students);
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: dvh;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url('../images/Background.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+}
+
+button {
+    padding: 0.75rem;
+    border: none;
+    background-color: #239452;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    margin: 10px 12px 0 12px;
+    padding: 10px 18px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #006400;
+}
+
+#backBtn {
+    display: block;
+    margin: 35px auto 0;
+    padding: 10px 10px;
+    background-color: #239452;
+    color: white;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    width: 120px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+#backBtn:hover {
+    background-color: #006400;
+}
+
+#logoutButton {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #e74c3c;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    align-items: left;
+    transition: background-color 0.3s ease;
+    z-index: 100;
+}
+
+#logoutButton:hover {
+    background-color: #c0392b;
+}
+
+header {
+    height: 100px;
+    background-color: #fff;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    /* z-index: 1000; */
+}
+
+h1 {
+    margin-left: 350px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #033403c7;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333333;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: #0da80db9;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-grow: 1;
+    gap: 2rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+th {
+    background: #239452;
+    color: white;
+}
+
+tr:hover {
+    background: #f1f1f1;
+}
+
+
+.studentForm, .newStudentForm {
+    margin-top: 70px;
+    background: #fff;
+    padding: 20px;
+    padding-right: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 900px;
+    justify-content: left;
+    align-items: left;
+}
+
+section {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    color: #054405b9;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 12px;
+}
+
+.form-row label {
+    flex: 1 0 100px;
+    font-weight: bold;
+    align-self: center;
+    text-align: left;
+    padding-left: 40px;
+}
+
+.form-row input,
+.form-row select {
+    flex: 2 0 600px;
+    padding: 8px 12px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}

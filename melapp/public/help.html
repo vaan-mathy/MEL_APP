@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Help - Software Usage and Installation</title>
+  <link rel="icon" type="image/x-icon" href="images/logo.ico">
+  <link rel="stylesheet" href="stylesheets/common.css">
+  <style>
+    p,
+    li {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 0.8rem;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    code {
+      background-color: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    pre {
+      background-color: #eee;
+      border-left: 4px solid #3498db;
+      padding: 10px;
+      overflow-x: auto;
+    }
+
+    .help-section {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <img src="images/Master.jpg" alt="Master" width="78" height="100" />
+    <h1>Help - Software Usage and Installation</h1>
+  </header>
+
+  <div class="help-section" style="margin-top: 100px;">
+    <h3>Overview</h3>
+    <p>This software is a web-based student management system that allows you to add, edit, delete, and view student
+      records with training history. It is built with Node.js backend and uses MySQL as the database.</p>
+  </div>
+
+  <div class="help-section">
+    <h3>How to Use</h3>
+    <ul>
+      <li><strong>Login Page:</strong> Use your credentials to log in.</li>
+      <li><strong>Home Page:</strong> Navigate to Student E-Data to manage student information or Instructors for
+        instructor data.</li>
+      <li><strong>Student E-Data Page:</strong> Search and filter student records using multiple filters.</li>
+      <li><strong>Student Detail Page:</strong> View full student details, edit information, add or remove training
+        records, save changes, or delete the student.</li>
+      <li><strong>Add New Student Page:</strong> Input new student information and save it to the system.</li>
+      <li><strong>Help Button:</strong> Click the help button on any page for guidance.</li>
+    </ul>
+  </div>
+
+  <div class="help-section">
+    <h3>Installing Dependencies and Running the Software</h3>
+    <p>To install and run this software locally, follow these steps:</p>
+    <ol>
+      <li><strong>Install <code>Node.js</code>:</strong>
+        <ul>
+          <li>Download and install from the official website: <a href="https://nodejs.org/"
+              target="_blank">https://nodejs.org/</a></li>
+          <li>Verify installation by running <code>node -v</code> and <code>npm -v</code> in your terminal or command
+            prompt.</li>
+        </ul>
+      </li>
+      <li><strong>Install <code>MySQL</code>:</strong>
+        <ul>
+          <li>Download and install from the MySQL official website: <a href="https://dev.mysql.com/downloads/mysql/"
+              target="_blank">https://dev.mysql.com/downloads/mysql/</a></li>
+          <li>Create a database for the application and configure user credentials.</li>
+        </ul>
+      </li>
+      <li><strong>Clone or Download the Software Code</strong></li>
+      <li><strong>Install Project Dependencies:</strong>
+        <p>Navigate to the project directory in your terminal and run:</p>
+        <pre>npm install</pre>
+      </li>
+      <li><strong>Configure Database Connection:</strong>
+        <p>Update the database connection settings in your Node.js application's configuration file (e.g.,
+          <code>config.js</code> or environment variables) to connect to your MySQL database.
+        </p>
+      </li>
+      <li><strong>Initialize the Database:</strong>
+        <p>Run the provided SQL scripts or migrations to create required tables and seed initial data.</p>
+      </li>
+      <li><strong>Run the Application:</strong>
+        <p>Start the Node.js server:</p>
+        <pre>npm start</pre>
+        <p>Or if configured differently:</p>
+        <pre>node app.js</pre>
+      </li>
+      <li><strong>Access the Application:</strong>
+        <p>Open your web browser and go to <code>http://localhost:3000</code> or the configured port.</p>
+      </li>
+    </ol>
+  </div>
+  <button id="backBtn">Back</button>
+  <script>
+  document.getElementById("backBtn").addEventListener("click", () => {
+      window.history.back();
+    });
+  </script>
+</body>
+
+</html>

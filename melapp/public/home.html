@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Human Universal Energy and Spiritual Yoga</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.ico">
+    <link rel="stylesheet" href="stylesheets/common.css">
+
+    <style>
+
+        .button-container {
+            display: flex;
+            gap: 500px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background-color: #044604c7;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #119718;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="images/Master.jpg" alt="Master" width="78" height="100" />
+        <h1>Human Universal Energy and Spiritual Yoga</h1>
+        <button id="logoutButton">Logout</button>
+    </header>
+    <main>
+        <div class="button-container">
+            <button id="studentButton">Student E-Data</button>
+            <button id="instructorButton">Instructors</button>
+        </div>
+    </main>
+    <script>
+        document.getElementById('studentButton').addEventListener('click', function () {
+            window.location.href = 'student.html';
+            // Add navigation or functionality here
+        });
+
+        document.getElementById('instructorButton').addEventListener('click', function () {
+            window.location.href = 'instructor.html';
+            // Add navigation or functionality here
+        });
+
+        document.getElementById('logoutButton').addEventListener('click', function () {
+            // Redirect to login page on logout
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+
+</html>

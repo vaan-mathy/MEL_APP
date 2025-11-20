@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Detail</title>
+  <link rel="icon" type="image/x-icon" href="images/logo.ico">
+  <link rel="stylesheet" href="stylesheets/common.css">
+  <style>
+    input[readonly] {
+      background: #f9f9f9;
+      border: none;
+      color: #333;
+    }
+
+    .training-records {
+      margin-top: 10px;
+    }
+
+    .training-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    .training-row input {
+      flex: 1 0 140px;
+      padding: 6px 8px;
+      font-size: 1rem;
+    }
+
+    .training-row button.remove-training {
+      background: #e74c3c;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      height: 38px;
+      flex: 0 0 auto;
+    }
+
+    .training-row button.remove-training:hover {
+      background: #c0392b;
+    }
+
+    #addTrainingBtn {
+      background: #27ae60;
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    #deleteBtn {
+      background: #e74c3c;
+      color: white;
+    }
+
+    #deleteBtn:hover {
+      background: #c0392b;
+    }
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <button id="logoutButton">Logout</button>
+    <img src="images/Master.jpg" alt="Master" width="78" height="100" />
+    <h1>Student Detail</h1>
+  </header>
+
+  <form id="studentForm">
+
+    <section>
+      <h3>Basic Information</h3>
+      <div class="form-row"><label for="MEL_ID">MEL ID</label><input type="text" id="MEL_ID" readonly /></div>
+      <div class="form-row"><label for="NAME">Name</label><input type="text" id="NAME" readonly /></div>
+      <div class="form-row"><label for="DOB">Date of Birth</label><input type="date" id="DOB" readonly /></div>
+      <div class="form-row">
+        <label for="IsAlive">Is Alive</label>
+        <select id="IsAlive" disabled>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+    </section>
+
+    <section>
+      <h3>Temporary Address</h3>
+      <div class="form-row"><label for="T_HouseStreet">House/Street</label><input type="text" id="T_HouseStreet"
+          readonly /></div>
+      <div class="form-row"><label for="T_CityVillage">City/Village</label><input type="text" id="T_CityVillage"
+          readonly /></div>
+      <div class="form-row"><label for="T_District">District</label><input type="text" id="T_District" readonly /></div>
+      <div class="form-row"><label for="T_State">State</label><input type="text" id="T_State" readonly /></div>
+      <div class="form-row"><label for="T_Country">Country</label><input type="text" id="T_Country" readonly /></div>
+      <div class="form-row"><label for="T_PinCode">Pin Code</label><input type="text" id="T_PinCode" readonly /></div>
+    </section>
+
+    <section>
+      <h3>Permanent Address</h3>
+      <div class="form-row"><label for="P_HouseStreet">House/Street</label><input type="text" id="P_HouseStreet"
+          readonly /></div>
+      <div class="form-row"><label for="P_CityVillage">City/Village</label><input type="text" id="P_CityVillage"
+          readonly /></div>
+      <div class="form-row"><label for="P_District">District</label><input type="text" id="P_District" readonly /></div>
+      <div class="form-row"><label for="P_State">State</label><input type="text" id="P_State" readonly /></div>
+      <div class="form-row"><label for="P_Country">Country</label><input type="text" id="P_Country" readonly /></div>
+      <div class="form-row"><label for="P_PinCode">Pin Code</label><input type="text" id="P_PinCode" readonly /></div>
+    </section>
+
+    <section>
+      <h3>Contact Information & Qualification</h3>
+      <div class="form-row"><label for="Qualification">Education Qualification</label><input type="text"
+          id="Qualification" readonly /></div>
+      <div class="form-row"><label for="Email">Email</label><input type="email" id="Email" readonly /></div>
+      <div class="form-row"><label for="RPhone1">Residential Phone Number</label><input type="text" id="RPhone1"
+          readonly /></div>
+      <div class="form-row"><label for="RPhone2">Alternate Residential Phone Number</label><input type="text"
+          id="RPhone2" readonly /></div>
+      <div class="form-row"><label for="OPhone1">Office Phone Number</label><input type="text" id="OPhone1" readonly />
+      </div>
+      <div class="form-row"><label for="OPhone2">Alternate Office Phone Number</label><input type="text" id="OPhone2"
+          readonly /></div>
+    </section>
+
+    <section>
+      <h3>Training Records</h3>
+      <button type="button" id="addTrainingBtn" style="display:none;">Add Training Record</button>
+      <div id="trainingRecords" class="training-records"></div>
+    </section>
+
+    <section>
+      <h3>Last Level</h3>
+      <div class="form-row"><label for="Level">Level</label><input type="number" id="Level" readonly /></div>
+    </section>
+
+    <div class="buttons">
+      <button type="button" id="editBtn">Edit</button>
+      <button type="button" id="saveBtn" style="display:none;">Save</button>
+      <button type="button" id="deleteBtn">Delete</button>
+    </div>
+  </form>
+
+  <button id="backBtn">← Back</button>
+
+  <script>
+    const students = [
+      {
+        MEL_ID: 101,
+        NAME: "Alice Smith",
+        DOB: "1990-01-15",
+        IsAlive: true,
+        T_HouseStreet: "123 Maple St",
+        T_CityVillage: "Springfield",
+        T_District: "Greene",
+        T_State: "MO",
+        T_Country: "USA",
+        T_PinCode: "65802",
+        P_HouseStreet: "456 Oak St",
+        P_CityVillage: "Springfield",
+        P_District: "Greene",
+        P_State: "MO",
+        P_Country: "USA",
+        P_PinCode: "65804",
+        Qualification: "Bachelor's Degree",
+        Email: "alice@example.com",
+        RPhone1: "555-2345",
+        RPhone2: "555-5678",
+        OPhone1: "555-1111",
+        OPhone2: "555-2222",
+        TrainingRecords: [
+          { Level: "2", CompletedDate: "2022-05-15", Instructor: "John Doe", Place: "Room A", RegisterNum: "R001" },
+          { Level: "3", CompletedDate: "2023-01-10", Instructor: "Jane Roe", Place: "Room B", RegisterNum: "R002" }
+        ],
+        Level: "3"
+      }
+    ];
+
+    let currentStudent = null;
+    let isEditing = false;
+
+    // Create training record input row
+    function createTrainingRecordRow(record = {}) {
+      const row = document.createElement('div');
+      row.className = 'training-row';
+
+      function createInput(id, placeholder, value = "") {
+        const input = document.createElement('input');
+        input.type = id === 'CompletedDate' ? 'date' : 'text';
+        input.placeholder = placeholder;
+        input.id = id;
+        input.value = value;
+        input.readOnly = !isEditing;
+        if (!isEditing) input.setAttribute('readonly', 'readonly');
+        return input;
+      }
+
+      const levelInput = createInput('Level', 'Level', record.Level || '');
+      const dateInput = createInput('CompletedDate', 'Completed Date', record.CompletedDate || '');
+      const instructorInput = createInput('Instructor', 'Instructor', record.Instructor || '');
+      const placeInput = createInput('Place', 'Place', record.Place || '');
+      const registerNumInput = createInput('RegisterNum', 'Registration Number', record.RegisterNum || '');
+
+      row.appendChild(levelInput);
+      row.appendChild(dateInput);
+      row.appendChild(instructorInput);
+      row.appendChild(placeInput);
+      row.appendChild(registerNumInput);
+
+      if (isEditing) {
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'remove-training';
+        removeBtn.textContent = 'Remove';
+        removeBtn.onclick = () => row.remove();
+        row.appendChild(removeBtn);
+      }
+
+      return row;
+    }
+
+    function loadStudent(student) {
+      if (!student) {
+        alert('Student not found!');
+        window.history.back();
+        return;
+      }
+      currentStudent = student;
+
+      document.getElementById('MEL_ID').value = student.MEL_ID;
+      document.getElementById('NAME').value = student.NAME;
+      document.getElementById('DOB').value = student.DOB || '';
+      document.getElementById('IsAlive').value = student.IsAlive ? 'true' : 'false';
+
+      document.getElementById('T_HouseStreet').value = student.T_HouseStreet || '';
+      document.getElementById('T_CityVillage').value = student.T_CityVillage || '';
+      document.getElementById('T_District').value = student.T_District || '';
+      document.getElementById('T_State').value = student.T_State || '';
+      document.getElementById('T_Country').value = student.T_Country || '';
+      document.getElementById('T_PinCode').value = student.T_PinCode || '';
+
+      document.getElementById('P_HouseStreet').value = student.P_HouseStreet || '';
+      document.getElementById('P_CityVillage').value = student.P_CityVillage || '';
+      document.getElementById('P_District').value = student.P_District || '';
+      document.getElementById('P_State').value = student.P_State || '';
+      document.getElementById('P_Country').value = student.P_Country || '';
+      document.getElementById('P_PinCode').value = student.P_PinCode || '';
+
+      document.getElementById('Qualification').value = student.Qualification || '';
+      document.getElementById('Email').value = student.Email || '';
+      document.getElementById('RPhone1').value = student.RPhone1 || '';
+      document.getElementById('RPhone2').value = student.RPhone2 || '';
+      document.getElementById('OPhone1').value = student.OPhone1 || '';
+      document.getElementById('OPhone2').value = student.OPhone2 || '';
+      document.getElementById('Level').value = student.Level || '';
+
+      renderTrainingRecords(student.TrainingRecords || []);
+
+      setFieldsEditable(false);
+    }
+
+    function renderTrainingRecords(records) {
+      const container = document.getElementById('trainingRecords');
+      container.innerHTML = '';
+
+      if (records.length === 0 && !isEditing) {
+        container.innerHTML = '<p>No training records.</p>';
+        return;
+      }
+      records.forEach(rec => {
+        container.appendChild(createTrainingRecordRow(rec));
+      });
+    }
+
+    function setFieldsEditable(editable) {
+      isEditing = editable;
+
+      const inputs = document.querySelectorAll('#studentForm input, #studentForm select');
+      inputs.forEach(input => {
+        if (input.id === 'MEL_ID') return; // MEL_ID readonly always
+        if (input.tagName === 'SELECT' && input.id === 'IsAlive') {
+          input.disabled = !editable;
+          return;
+        }
+        input.readOnly = !editable;
+        if (editable) {
+          input.removeAttribute('readonly');
+        } else {
+          input.setAttribute('readonly', 'readonly');
+        }
+      });
+
+      renderTrainingRecords(currentStudent.TrainingRecords || []);
+
+      document.getElementById('addTrainingBtn').style.display = editable ? 'inline-block' : 'none';
+
+      document.getElementById('editBtn').style.display = editable ? 'none' : 'inline-block';
+      document.getElementById('saveBtn').style.display = editable ? 'inline-block' : 'none';
+    }
+
+    function gatherTrainingRecords() {
+      const records = [];
+      const container = document.getElementById('trainingRecords');
+      container.querySelectorAll('.training-row').forEach(row => {
+        const inputs = row.querySelectorAll('input');
+        records.push({
+          Level: inputs[0].value.trim(),
+          CompletedDate: inputs[1].value,
+          Instructor: inputs[2].value.trim(),
+          Place: inputs[3].value.trim(),
+          RegisterNum: inputs[4].value.trim()
+        });
+      });
+      return records;
+    }
+
+    function saveStudentData() {
+      if (!currentStudent) return;
+
+      currentStudent.NAME = document.getElementById('NAME').value.trim();
+      currentStudent.DOB = document.getElementById('DOB').value || '';
+      currentStudent.IsAlive = document.getElementById('IsAlive').value === 'true';
+
+      currentStudent.T_HouseStreet = document.getElementById('T_HouseStreet').value.trim();
+      currentStudent.T_CityVillage = document.getElementById('T_CityVillage').value.trim();
+      currentStudent.T_District = document.getElementById('T_District').value.trim();
+      currentStudent.T_State = document.getElementById('T_State').value.trim();
+      currentStudent.T_Country = document.getElementById('T_Country').value.trim();
+      currentStudent.T_PinCode = document.getElementById('T_PinCode').value.trim();
+
+      currentStudent.P_HouseStreet = document.getElementById('P_HouseStreet').value.trim();
+      currentStudent.P_CityVillage = document.getElementById('P_CityVillage').value.trim();
+      currentStudent.P_District = document.getElementById('P_District').value.trim();
+      currentStudent.P_State = document.getElementById('P_State').value.trim();
+      currentStudent.P_Country = document.getElementById('P_Country').value.trim();
+      currentStudent.P_PinCode = document.getElementById('P_PinCode').value.trim();
+
+      currentStudent.Qualification = document.getElementById('Qualification').value.trim();
+      currentStudent.Email = document.getElementById('Email').value.trim();
+      currentStudent.RPhone1 = document.getElementById('RPhone1').value.trim();
+      currentStudent.RPhone2 = document.getElementById('RPhone2').value.trim();
+      currentStudent.OPhone1 = document.getElementById('OPhone1').value.trim();
+      currentStudent.OPhone2 = document.getElementById('OPhone2').value.trim();
+      currentStudent.Level = document.getElementById('Level').value;
+
+      currentStudent.TrainingRecords = gatherTrainingRecords();
+
+      alert('Student data saved.');
+      setFieldsEditable(false);
+      loadStudent(currentStudent);
+    }
+
+    function deleteStudent() {
+      if (!currentStudent) return;
+      if (!confirm('Are you sure you want to delete this student?')) return;
+
+      const idx = students.findIndex(s => s.MEL_ID === currentStudent.MEL_ID);
+      if (idx >= 0) students.splice(idx, 1);
+
+      alert('Student deleted.');
+      window.history.back();
+    }
+
+    document.getElementById('editBtn').addEventListener('click', () => setFieldsEditable(true));
+    document.getElementById('saveBtn').addEventListener('click', saveStudentData);
+    document.getElementById('deleteBtn').addEventListener('click', deleteStudent);
+    document.getElementById('backBtn').addEventListener('click', () => window.history.back());
+    document.getElementById('addTrainingBtn').addEventListener('click', () => {
+      document.getElementById('trainingRecords').appendChild(createTrainingRecordRow());
+    });
+
+    window.onload = () => {
+      const melId = Number(new URLSearchParams(window.location.search).get('mel_id'));
+      const student = students.find(s => s.MEL_ID === melId);
+      loadStudent(student);
+    };
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Instructors Management</title>
+  <link rel="icon" type="image/x-icon" href="images/logo.ico">
+  <link rel="stylesheet" href="stylesheets/common.css">
+  <style>
+    input,
+    select {
+      width: 100%;
+      font-size: 1rem;
+      padding: 6px 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 500px;
+      justify-content: center;
+    }
+
+    #addInstructorBtn {
+      margin-top: 15px;
+      background-color: #044604c7;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+
+    }
+
+    #addInstructorBtn:hover {
+      background-color: #119718;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="images/Master.jpg" alt="Master" width="78" height="100" />
+    <button id="logoutButton">Logout</button>
+    <h1>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspInstructors List</h1>
+  </header>
+  <main>
+    <div class="button-container">
+      <button id="addInstructorBtn">Add Instructor</button>
+      <button id="addInstructorBtn">Show All Instructor</button>
+    </div>
+    <table id="instructorsTable">
+      <thead>
+        <tr>
+          <th>Instructor Name</th>
+          <th>Eligible Level</th>
+          <th>Current Approval Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows dynamically added here -->
+      </tbody>
+    </table>
+
+    <button id="backBtn">←Back</button>
+  </main>
+  <script>
+    let instructors = [
+      { name: "John Doe", level: "2", approvalStatus: "Approved" },
+      { name: "Jane Roe", level: "3", approvalStatus: "Pending" }
+    ];
+
+    const approvalOptions = ["Approved", "Pending", "Rejected"];
+
+    const tableBody = document.querySelector("#instructorsTable tbody");
+
+    function renderTable() {
+      tableBody.innerHTML = "";
+      instructors.forEach((inst, idx) => {
+        const tr = document.createElement("tr");
+
+        const nameTd = document.createElement("td");
+        const nameInput = document.createElement("input");
+        nameInput.type = "text";
+        nameInput.value = inst.name;
+        nameInput.addEventListener("input", e => {
+          instructors[idx].name = e.target.value;
+        });
+        nameTd.appendChild(nameInput);
+
+        const levelTd = document.createElement("td");
+        const levelInput = document.createElement("input");
+        levelInput.type = "number";
+        levelInput.min = "1";
+        levelInput.value = inst.level;
+        levelInput.addEventListener("input", e => {
+          instructors[idx].level = e.target.value;
+        });
+        levelTd.appendChild(levelInput);
+
+        const statusTd = document.createElement("td");
+        const statusSelect = document.createElement("select");
+        approvalOptions.forEach(opt => {
+          const option = document.createElement("option");
+          option.value = opt;
+          option.textContent = opt;
+          if (inst.approvalStatus === opt) option.selected = true;
+          statusSelect.appendChild(option);
+        });
+        statusSelect.addEventListener("change", e => {
+          instructors[idx].approvalStatus = e.target.value;
+        });
+        statusTd.appendChild(statusSelect);
+
+        tr.appendChild(nameTd);
+        tr.appendChild(levelTd);
+        tr.appendChild(statusTd);
+
+        tableBody.appendChild(tr);
+      });
+    }
+
+    function addInstructor() {
+      instructors.push({ name: "", level: "", approvalStatus: "Pending" });
+      renderTable();
+    }
+
+    document.getElementById("addInstructorBtn").addEventListener("click", addInstructor);
+
+    document.getElementById("logoutButton").addEventListener("click", () => {
+      window.location.href = 'login.html'; // Adjust to your login path
+    });
+
+    document.getElementById("backBtn").addEventListener("click", () => {
+      window.history.back();
+    });
+
+    renderTable();
+  </script>
+</body>
+
+</html>

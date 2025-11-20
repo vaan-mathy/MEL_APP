@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add New Student</title>
+  <link rel="icon" type="image/x-icon" href="images/logo.ico">
+  <link rel="stylesheet" href="stylesheets/common.css">
+  <style>
+
+    .address-copy {
+      margin-bottom: 16px;
+    }
+
+    .buttons {
+      text-align: center;
+    }
+
+    button.close-btn {
+      background-color: #e74c3c;
+    }
+
+    button.close-btn:hover {
+      background-color: #c0392b;
+    }
+
+    .required {
+      color: red;
+      margin-left: 4px;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <button id="logoutButton">Logout</button>
+  <img src="images/Master.jpg" alt="Master" width="78" height="100" />
+  <h1>Add New Student</h1>
+</header>
+<main style="height: 300vh;">
+  <form id="newStudentForm">
+
+    <section>
+      <h3>Basic Information</h3>
+      <div class="form-row">
+        <label for="MEL_ID">MEL ID<span class="required">*</span></label>
+        <input type="text" id="MEL_ID" required />
+      </div>
+      <div class="form-row">
+        <label for="NAME">Name<span class="required">*</span></label>
+        <input type="text" id="NAME" required />
+      </div>
+    </section>
+
+    <section>
+      <h3>Temporary Address</h3>
+      <div class="form-row">
+        <label for="T_HouseStreet">House/Street<span class="required">*</span></label>
+        <input type="text" id="T_HouseStreet" required />
+      </div>
+      <div class="form-row">
+        <label for="T_CityVillage">City/Village<span class="required">*</span></label>
+        <input type="text" id="T_CityVillage" required />
+      </div>
+      <div class="form-row">
+        <label for="T_District">District<span class="required">*</span></label>
+        <input type="text" id="T_District" required />
+      </div>
+      <div class="form-row">
+        <label for="T_State">State<span class="required">*</span></label>
+        <input type="text" id="T_State" required />
+      </div>
+      <div class="form-row">
+        <label for="T_Country">Country<span class="required">*</span></label>
+        <input type="text" id="T_Country" required />
+      </div>
+      <div class="form-row">
+        <label for="T_PinCode">Pin Code<span class="required">*</span></label>
+        <input type="text" id="T_PinCode" required />
+      </div>
+    </section>
+
+    <section>
+      <h3>Permanent Address</h3>
+      <div class="address-copy">
+        <input type="checkbox" id="copyAddress" />
+        <label for="copyAddress" style="font-weight: normal;">Copy Temporary Address to Permanent Address</label>
+      </div>
+      <div class="form-row">
+        <label for="P_HouseStreet">House/Street<span class="required">*</span></label>
+        <input type="text" id="P_HouseStreet" required />
+      </div>
+      <div class="form-row">
+        <label for="P_CityVillage">City/Village<span class="required">*</span></label>
+        <input type="text" id="P_CityVillage" required />
+      </div>
+      <div class="form-row">
+        <label for="P_District">District<span class="required">*</span></label>
+        <input type="text" id="P_District" required />
+      </div>
+      <div class="form-row">
+        <label for="P_State">State<span class="required">*</span></label>
+        <input type="text" id="P_State" required />
+      </div>
+      <div class="form-row">
+        <label for="P_Country">Country<span class="required">*</span></label>
+        <input type="text" id="P_Country" required />
+      </div>
+      <div class="form-row">
+        <label for="P_PinCode">Pin Code<span class="required">*</span></label>
+        <input type="text" id="P_PinCode" required />
+      </div>
+    </section>
+
+    <section>
+      <h3>Qualifications & Contact</h3>
+      <div class="form-row">
+        <label for="Qualification">Education Qualification</label>
+        <input type="text" id="Qualification" />
+      </div>
+      <div class="form-row">
+        <label for="Email">Email</label>
+        <input type="email" id="Email" />
+      </div>
+      <div class="form-row">
+        <label for="RPhone1">Residential Phone Number</label>
+        <input type="text" id="RPhone1" />
+      </div>
+      <div class="form-row">
+        <label for="RPhone2">Alternate Residential Phone Number</label>
+        <input type="text" id="RPhone2" />
+      </div>
+      <div class="form-row">
+        <label for="OPhone1">Office Phone Number</label>
+        <input type="text" id="OPhone1" />
+      </div>
+      <div class="form-row">
+        <label for="OPhone2">Alternate Office Phone Number</label>
+        <input type="text" id="OPhone2" />
+      </div>
+      <div class="form-row">
+        <label for="DOB">Date of Birth</label>
+        <input type="date" id="DOB" />
+      </div>
+      <div class="form-row">
+        <label for="IsAlive">Is Alive</label>
+        <select id="IsAlive">
+          <option value="true" selected>Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+    </section>
+
+    <section>
+      <h3>Training Details</h3>
+      <div class="form-row">
+        <label for="Level">Level</label>
+        <input type="number" id="Level" min="1" />
+      </div>
+      <div class="form-row">
+        <label for="Instructor">Instructor</label>
+        <input type="text" id="Instructor" />
+      </div>
+      <div class="form-row">
+        <label for="Place">Place</label>
+        <input type="text" id="Place" />
+      </div>
+      <div class="form-row">
+        <label for="RegisterNum">Registration Number</label>
+        <input type="text" id="RegisterNum" />
+      </div>
+      <div class="form-row">
+        <label for="CompletedDate">Completed Date</label>
+        <input type="date" id="CompletedDate" />
+      </div>
+    </section>
+
+    <div class="buttons">
+      <button type="submit" id="saveBtn">Save & Close</button>
+      <button type="button" id="closeBtn" class="close-btn">Close</button>
+    </div>
+
+  </form>
+</main>
+
+  <script>
+    // Copy Temporary Address to Permanent
+    document.getElementById('copyAddress').addEventListener('change', function () {
+      if (this.checked) {
+        document.getElementById('P_HouseStreet').value = document.getElementById('T_HouseStreet').value;
+        document.getElementById('P_CityVillage').value = document.getElementById('T_CityVillage').value;
+        document.getElementById('P_District').value = document.getElementById('T_District').value;
+        document.getElementById('P_State').value = document.getElementById('T_State').value;
+        document.getElementById('P_Country').value = document.getElementById('T_Country').value;
+        document.getElementById('P_PinCode').value = document.getElementById('T_PinCode').value;
+      } else {
+        // Clear permanent address if unchecked
+        document.getElementById('P_HouseStreet').value = '';
+        document.getElementById('P_CityVillage').value = '';
+        document.getElementById('P_District').value = '';
+        document.getElementById('P_State').value = '';
+        document.getElementById('P_Country').value = '';
+        document.getElementById('P_PinCode').value = '';
+      }
+    });
+
+    // Save form data
+    document.getElementById('newStudentForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Simple validation
+      const requiredFields = ['MEL_ID', 'NAME', 'T_HouseStreet', 'T_CityVillage', 'T_District', 'T_State', 'T_Country', 'T_PinCode',
+        'P_HouseStreet', 'P_CityVillage', 'P_District', 'P_State', 'P_Country', 'P_PinCode'];
+
+      for (const fieldId of requiredFields) {
+        const field = document.getElementById(fieldId);
+        if (!field.value.trim()) {
+          alert('Please fill the required field: ' + field.previousElementSibling.textContent.replace('*', ''));
+          field.focus();
+          return;
+        }
+      }
+
+      // Collect data
+      const studentData = {
+        MEL_ID: document.getElementById('MEL_ID').value.trim(),
+        NAME: document.getElementById('NAME').value.trim(),
+        TemporaryAddress: {
+          HouseStreet: document.getElementById('T_HouseStreet').value.trim(),
+          CityVillage: document.getElementById('T_CityVillage').value.trim(),
+          District: document.getElementById('T_District').value.trim(),
+          State: document.getElementById('T_State').value.trim(),
+          Country: document.getElementById('T_Country').value.trim(),
+          PinCode: document.getElementById('T_PinCode').value.trim(),
+        },
+        PermanentAddress: {
+          HouseStreet: document.getElementById('P_HouseStreet').value.trim(),
+          CityVillage: document.getElementById('P_CityVillage').value.trim(),
+          District: document.getElementById('P_District').value.trim(),
+          State: document.getElementById('P_State').value.trim(),
+          Country: document.getElementById('P_Country').value.trim(),
+          PinCode: document.getElementById('P_PinCode').value.trim(),
+        },
+        Qualification: document.getElementById('Qualification') ? document.getElementById('Qualification').value.trim() : '',
+        Email: document.getElementById('Email') ? document.getElementById('Email').value.trim() : '',
+        ResidentialPhone: document.getElementById('RPhone1') ? document.getElementById('RPhone1').value.trim() : '',
+        AltResidentialPhone: document.getElementById('RPhone2') ? document.getElementById('RPhone2').value.trim() : '',
+        OfficePhone: document.getElementById('OPhone1') ? document.getElementById('OPhone1').value.trim() : '',
+        AltOfficePhone: document.getElementById('OPhone2') ? document.getElementById('OPhone2').value.trim() : '',
+        DOB: document.getElementById('DOB') ? document.getElementById('DOB').value : '',
+        IsAlive: document.getElementById('IsAlive') ? document.getElementById('IsAlive').value : 'true',
+        Level: document.getElementById('Level').value,
+        Instructor: document.getElementById('Instructor').value,
+        Place: document.getElementById('Place').value,
+        RegistrationNumber: document.getElementById('RegisterNum').value,
+        CompletedDate: document.getElementById('CompletedDate').value
+      };
+
+      // Simulate saving data, replace with real api call or backend save
+      console.log("Saving Student Data:", studentData);
+
+      alert('Student data saved successfully!');
+      // Redirect to home or close, here just clear the form for demonstration
+      window.location.href = 'home.html'; // Change to your actual page or close logic
+    });
+
+    // Close button clears form or redirects without saving
+    document.getElementById('closeBtn').addEventListener('click', () => {
+      if (confirm('Are you sure you want to close without saving?')) {
+        window.location.href = 'home.html'; // Change as needed
+      }
+    });
+  </script>
+
+</body>
+
+</html>
