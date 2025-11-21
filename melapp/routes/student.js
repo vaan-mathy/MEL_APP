@@ -1,0 +1,16 @@
+var express = require('express');
+var router = express.Router();
+const mysql = require("mysql");
+
+/* GET users listing. */
+router.get('/', function(req, res) { 
+    const dbconfig = require("../config/dbconfig");
+    const db = mysql.createConnection(dbconfig);
+    db.connect((err)=>{
+        if (err) throw err;
+        console.log("Connected");
+    })
+  res.send('Student Data');
+});
+
+module.exports = router;
